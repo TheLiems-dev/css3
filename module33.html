@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Cá Nhân - 3 Trang Trong 1 File</title>
+    <style>
+        /* Liên kết skip: Ẩn trừ khi focus */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Điều hướng: Flex với 3 thuộc tính CSS */
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #f0f0f0;
+            padding: 10px;
+            color: #333;
+        }
+        nav a {
+            text-decoration: none;
+            color: inherit;
+            padding: 5px 10px;
+            transition: background-color 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            transform: scale(1.1);
+        }
+
+        /* Hình ảnh: Mô hình hộp */
+        img {
+            border: 2px solid #ccc;
+            padding: 5px;
+            border-radius: 10px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Grid cho container hình ảnh: Ít nhất 2 cột (ở đây dùng 3 cột) */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Flex cho container hình ảnh bổ sung: nth-child áp dụng ở đây */
+        .image-flex {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .image-flex img:nth-child(odd) {
+            border-radius: 10px;
+        }
+        .image-flex img:nth-child(even) {
+            border-radius: 20px;
+        }
+
+        /* Ẩn tất cả các trang mặc định */
+        .page {
+            display: none;
+            padding: 20px;
+        }
+        /* Hiển thị trang đầu tiên mặc định */
+        #page1 {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Chuyển tới Nội dung Chính</a>
+    <nav>
+        <a onclick="showPage('page1')">Trang Chủ</a>
+        <a onclick="showPage('page2')">Trang 2</a>
+        <a onclick="showPage('page3')">Trang 3</a>
+    </nav>
+
+    <!-- Trang 1: Trang Chủ -->
+    <div id="page1" class="page">
+        <main id="main-content">
+            <h1>Chào mừng đến với Trang Chủ</h1>
+            <p>Đây là trang đầu tiên với một hình ảnh về Hà Nội.</p>
+            <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2024/01/dia-diem-du-lich-o-ha-noi-1.jpg" alt="Hình ảnh Hà Nội - Thủ đô Việt Nam">
+        </main>
+    </div>
+
+    <!-- Trang 2: Bộ Sưu Tập Hình Ảnh -->
+    <div id="page2" class="page">
+        <main id="main-content">
+            <h1>Trang 2: Bộ Sưu Tập Hình Ảnh</h1>
+            <p>Trang này có 5 hình ảnh về các địa danh Việt Nam, sử dụng grid cho 3 hình đầu và flex cho 2 hình cuối với nth-child.</p>
+            <div class="image-grid">
+                <img src="https://hoiancreativecity.com/uploads/images/thang%202-2023/hoi-an-gd659f3b8f_1920-1280x853.jpg" alt="Hình ảnh Hội An - Di sản thế giới">
+                <img src="https://www.vietnamairlines.com/~/media/SEO-images/2025%20SEO/Traffic%20TA/MB/how-big-is-phu-quoc/phu-quocs-574-square-kilometers-make-it-larger-than-singapore.jpg?la=en" alt="Hình ảnh Phú Quốc - Đảo ngọc">
+                <img src="https://statics.vinpearl.com/kinh-nghiem-du-lich-nha-trang-2_1689411065.jpg" alt="Hình ảnh Nha Trang - Biển xanh">
+            </div>
+            <div class="image-flex">
+                <img src="https://media.vietravel.com/images/Content/dia-diem-du-lich-hue-01.jpg" alt="Hình ảnh Huế - Kinh đô xưa">
+                <img src="https://realbiz.vn/wp-content/uploads/2023/06/ha-long-bay-vinh-ha-long-la-mot-trong-nhung-diem-du-lich-noi-tieng-va-dep-nhat-o-viet-nam.jpg" alt="Hình ảnh Vịnh Hạ Long - Kỳ quan thiên nhiên">
+            </div>
+        </main>
+    </div>
+
+    <!-- Trang 3: Kết Thúc -->
+    <div id="page3" class="page">
+        <main id="main-content">
+            <h1>Trang 3: Kết Thúc</h1>
+            <p>Đây là trang cuối cùng với một hình ảnh về đèo Mã Pí lèng của tỉnh Hà giang.</p>
+            <img src="https://yootek.vn/wp-content/uploads/2025/09/30.png" alt="Hình ảnh Mã Pí Lèng - đèo lên Hà giang">
+        </main>
+    </div>
+
+    <script>
+        // Hàm JavaScript đơn giản để chuyển đổi trang
+        function showPage(pageId) {
+            // Ẩn tất cả các trang
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.style.display = 'none');
+            // Hiển thị trang được chọn
+            document.getElementById(pageId).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
